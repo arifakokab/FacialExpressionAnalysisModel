@@ -1,121 +1,140 @@
-# Emotion Recognition System (Final Project for AAI-540)
+# Emotion Recognition System – Facial Expression Analysis (AAI-540 Final Project)
 
-This repository contains the full MLOps pipeline for my facial expression analysis (FEA) project, including data engineering, model training, deployment, and system validation using AWS SageMaker. This project develops and demonstrates a facial expression analysis system using a deep learning model (MobileNetV2) trained on FERPlus and RAF-DB datasets. The system is designed for neuromarketing use cases, enabling marketers and UX researchers to analyze the emotions expressed by participants as they view advertisements or digital content.
-
----
-
-## Components
-- **Data Source**: FER+ and RAF-DB (downloaded from Kaggle)
-- **Model**: MobileNetV2 fine-tuned on facial expression classes
-- **Deployment**: Batch inference via SageMaker
-- **Monitoring**: Basic logs, metrics, and evaluation reports
-- **CI/CD**: Manual workflow for demonstration
-
----
-
-## Quick Start
-- `notebooks/` contains JupyterLab notebooks used in SageMaker.
-- `models/` contains trained model weights saved in S3.
-- `demo/final_demo_video.mp4` is a screen recording showing system operation.
-
----
-
-- **Input:** Pre-recorded video files
-- **Process:** Extract frames, predict per-frame emotion, timestamp results
-- **Output:** CSV file with per-second emotion predictions
+This repository implements the complete MLOps pipeline for a facial expression analysis (FEA) system developed as the final project for AAI-540 (University of San Diego, MSc Applied AI). The solution demonstrates the engineering, deployment, and validation of a MobileNetV2-based emotion recognition model for neuromarketing use cases using AWS SageMaker, batch transform and local batch inference (as batch transform was too costly).
 
 ---
 
 ## Repository Structure
 
-├── 01_extract_and_upload_video_frames.ipynb # Extract video frames for inference
-
-├── 02_Run_Batch_Transform_Job.ipynb # Attempted AWS batch transform pipeline
-
-├── 03_Local_Batch_Inference.ipynb # Local batch inference on video frames
-
-├── emotion_predictions_with_timestamps.csv # Sample output: timestamped emotion predictions
-
-├── requirements.txt # Python dependencies
-
-├── README.md # Project documentation (this file)
-
----
-
-## Environment Setup
-
-1. **Clone this repo:**
-    ```bash
-    git clone https://github.com/arifakokab/FacialExpressionAnalysisModel.git
-    cd FacialExpressionAnalysisModel
-    ```
-
-2. **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3. **Download Trained Model:**
-    - The trained model checkpoint is `mobV2_full.pth` 
-  
-
-4. **Prepare Input Video:**
-    - Place your MP4 video in the project directory.
-    - Use `01_extract_and_upload_video_frames.ipynb` to extract frames at 1 frame/sec.
+```
+FacialExpressionAnalysisModel/
+│
+├── Model_Artifacts/                # Trained model files (PyTorch .pth, .tar.gz)
+│   ├── mobV2_full.pth
+│   └── mobV2_model.tar.gz
+│
+├── Model_Registry/                 # Model registry outputs (group, package, card)
+│   ├── Model Group, Package and Card.ipynb
+│   └── model_card.json
+│
+├── Model_Training/                 # Notebooks and code for model training
+│   ├── FEA_MobileNetV2_FER+,RAF-DB.ipynb
+│   └── FEA MobileNetV2 FER+,RAF-DB Final Code Final Project.pdf
+│
+├── Notebooks AWS Jupyter/          # Notebooks for data engineering, inference, etc.
+│   ├── 01_extract_and_upload_video_frames.ipynb
+│   ├── 02_Run Batch Transform Job.ipynb
+│   ├── 03_Local Batch Inference.ipynb
+│   ├── Model Creation in SageMaker.ipynb
+│   └── inference.py
+│
+├── README.md                       # Project documentation
+│
+├── requirements.txt                # Python dependencies
+│
+└── (Sample output files will be generated during the demo)
+```
 
 ---
 
-## How to Run
+## Components
 
-**Step 1: Extract Frames from Video**
-- Open and run `01_extract_and_upload_video_frames.ipynb`
-- Output will be a folder of frames (e.g., `video_frames/`)
+* **Data Sources:** FER+ and RAF-DB datasets (downloaded from Kaggle)
+* **Model:** MobileNetV2 (fine-tuned for 7-class facial emotion recognition)
+* **Deployment:** Batch inference (local, with AWS SageMaker Model Registry for artifact management)
+* **Monitoring:** Basic evaluation metrics and result analysis
+* **CI/CD:** Manual workflow (version-controlled in GitHub)
+* **Demo Video:** \[To be recorded] – Will demonstrate system operation, workflow, and sample outputs
 
-**Step 2: Local Batch Inference**
-- Open and run `03_Local_Batch_Inference.ipynb`
-- This notebook loads the trained model, processes each frame, and generates `emotion_predictions_with_timestamps.csv`
+---
 
-**Step 3: View Results**
-- Open the CSV in your notebook or with Excel/pandas to analyze per-second emotions.
+## Quick Start
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/arifakokab/FacialExpressionAnalysisModel.git
+cd FacialExpressionAnalysisModel
+```
+
+### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Prepare Model Weights
+
+The trained model checkpoint `mobV2_full.pth` is provided in `Model_Artifacts/`.
+
+### 4. Prepare Input Video
+
+* Place your `.mp4` video file in the project directory.
+* Use `01_extract_and_upload_video_frames.ipynb` to extract frames (1 frame per second) from the video.
+
+### 5. Local Batch Inference
+
+* Run `03_Local Batch Inference.ipynb` to load the trained model, process frames, and generate per-second emotion predictions (`emotion_predictions_with_timestamps.csv`).
+
+### 6. Analyze Output
+
+* Open the generated CSV file with Excel or pandas for analysis.
 
 ---
 
 ## Example Output
 
-| frame         | timestamp | emotion   |
-|---------------|-----------|-----------|
-| frame_0000.jpg| 0:00:00   | Neutral   |
-| frame_0001.jpg| 0:00:01   | Happy     |
-| frame_0002.jpg| 0:00:02   | Surprise  |
+| frame           | timestamp | emotion  |
+| --------------- | --------- | -------- |
+| frame\_0000.jpg | 0:00:00   | Neutral  |
+| frame\_0001.jpg | 0:00:01   | Happy    |
+| frame\_0002.jpg | 0:00:02   | Surprise |
+
+*Note: Sample output will be generated live in the demo video. It is not pre-uploaded to the repository.*
 
 ---
 
-## Project Details Summary
+## Project Details
 
-- **Model:** MobileNetV2, fine-tuned for 7 emotions
-- **Training Data:** FERPlus, RAF-DB
-- **Features:** Standard image preprocessing and augmentation
-- **Deployment:** Local inference (AWS SageMaker Model Registry for artifact management)
-- **Monitoring:** Distribution of emotion predictions per batch is logged for drift monitoring.  
-- **CI/CD:** All code is version-controlled in GitHub. The repo structure supports easy updates and reproducibility.  
+* **Model:** MobileNetV2, fine-tuned for 7 basic emotions
+* **Training Data:** FERPlus, RAF-DB (public datasets)
+* **Features:** Standard image preprocessing, augmentation, and label smoothing
+* **Deployment:** Local batch inference (with optional AWS Batch Transform)
+* **Monitoring:** Validation accuracy and macro F1-score, with per-batch output analysis for drift
+* **Model Registry:** Model group, package, and card (see `Model_Registry/`)
+* **CI/CD:** Codebase and artifacts are version-controlled in GitHub for full traceability
 
 ---
 
-## Future Work
+## Future Improvements
 
-- Integrate with real-time endpoints or batch transform on AWS
-- Build a web UI (e.g., Streamlit app) for user uploads and visualization
-- Add more advanced model/data monitoring (e.g., drift detection)
-- Extend for multi-modal (EEG, GSR) inputs
+* Enable automated batch transform and real-time endpoint deployment on AWS
+* Build a web UI (e.g., Streamlit) for uploading and visualizing results
+* Integrate advanced model/data monitoring (e.g., drift detection, fairness metrics)
+* Extend for multi-modal emotion recognition (e.g., EEG, GSR)
 
 ---
 
 ## Author
 
-**Arifa Kokab**  
+**Arifa Kokab**
 MSc Applied Artificial Intelligence
+University of San Diego
 
-## Made for final project
-- University of San Diego, MSc.AAI AAI-540
+> Final project for AAI-540 – Machine Learning Operations
 
-See `model_registry/model_card_mobFER.md` for detailed model specifications.
+---
+
+## Documentation
+
+* See `Model_Registry/model_card.json` for detailed model specifications and MLOps metadata.
+* Notebooks are annotated with stepwise explanations and sample commands for reproducibility.
+
+---
+
+## Notes
+
+* All code, artifacts, and documentation are organized for ease of reproducibility and team audit.
+* Sample outputs (such as the emotion predictions CSV) will be shown live during the demo recording and are not uploaded to the repository for privacy and storage efficiency.
+* For additional details, refer to notebook documentation.
+
