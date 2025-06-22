@@ -29,10 +29,15 @@ This repository contains the full MLOps pipeline for my facial expression analys
 ## Repository Structure
 
 ├── 01_extract_and_upload_video_frames.ipynb # Extract video frames for inference
+
 ├── 02_Run_Batch_Transform_Job.ipynb # Attempted AWS batch transform pipeline
+
 ├── 03_Local_Batch_Inference.ipynb # Local batch inference on video frames
+
 ├── emotion_predictions_with_timestamps.csv # Sample output: timestamped emotion predictions
+
 ├── requirements.txt # Python dependencies
+
 ├── README.md # Project documentation (this file)
 
 ---
