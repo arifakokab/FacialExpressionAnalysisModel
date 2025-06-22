@@ -46,8 +46,8 @@ This repository contains the full MLOps pipeline for my facial expression analys
 
 1. **Clone this repo:**
     ```bash
-    git clone https://github.com/your-username/your-repo.git
-    cd your-repo
+    git clone https://github.com/arifakokab/FacialExpressionAnalysisModel.git
+    cd FacialExpressionAnalysisModel
     ```
 
 2. **Install dependencies:**
