@@ -44,7 +44,6 @@ FacialExpressionAnalysisModel/
 * **Deployment:** Batch inference (local, with AWS SageMaker Model Registry for artifact management)
 * **Monitoring:** Basic evaluation metrics and result analysis
 * **CI/CD:** Manual workflow (version-controlled in GitHub)
-* **Demo Video:** \[To be recorded] – Will demonstrate system operation, workflow, and sample outputs
 
 ---
 
