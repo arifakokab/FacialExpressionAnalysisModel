@@ -15,7 +15,7 @@ All components are designed to run in a modular, auditable manner using AWS Sage
 | `02_FER_Model_CICD_SageMaker_AAI540.ipynb` | Automated model registration, package and model card creation, and CI/CD automation |
 | `03_extract_and_upload_video_frames.ipynb` | Video frame extraction (with OpenCV) and upload to S3 for batch inference |
 | `04_Run Batch Transform Job.ipynb` | Running batch inference in SageMaker and viewing batch outputs |
-| `05_Model_Monitoring_Performance.ipynb` | Parsing batch outputs, generating performance metrics, and monitoring via CloudWatch |
+| `05_Model_Monitoring_Performance.ipynb` | Model monitoring via CloudWatch |
 
 - All charts, confusion matrices, and visualizations are generated within the notebooks for clarity.
 - All code is commented and structured for reproducibility.
